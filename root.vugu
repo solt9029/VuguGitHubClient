@@ -1,0 +1,69 @@
+<div class="root">
+    <input type="text" name="user" @change="data.HandleChange(event)">
+    <button @click="data.HandleClick(event)">find repos</button>
+    <div vg-if='data.IsLoading'>isLoading...</div>
+    <div vg-if='data.Error != ""' vg-html='data.Error'></div>
+    <div vg-if='len(data.Repos) > 0'>
+        <ul>
+            <li vg-for='_, repo := range data.Repos'>
+                <a :href='repo.HtmlUrl' vg-html='repo.Name'></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="application/x-go">
+import "encoding/json"
+import "net/http"
+import "log"
+
+type RootData struct {
+    Repos []Repo
+    IsLoading bool
+    User string
+    Error string
+}
+
+type Repo struct {
+    Name string `json:"name"`
+    HtmlUrl string `json:"html_url"`
+}
+
+func (data *RootData) HandleChange(event *vugu.DOMEvent) {
+    data.User = event.JSEvent().Get("target").Get("value").String()
+    log.Printf("user: %v", data.User)
+}
+
+func (data *RootData) HandleClick(event *vugu.DOMEvent) {
+    data.Repos = []Repo{}
+    eventEnv := event.EventEnv()
+    data.IsLoading = true
+    data.Error = ""
+
+    go func() {
+        eventEnv.Lock()
+        defer eventEnv.UnlockRender()
+        defer func() {
+            data.IsLoading = false
+        }()
+        
+        res, err := http.Get("https://api.github.com/users/" + data.User + "/repos")
+        if err != nil {
+            log.Printf("Error fetching: %v", err)
+            data.Error = "Error fetching."
+            return
+        }
+        defer res.Body.Close()
+
+        var newRepos []Repo
+        err = json.NewDecoder(res.Body).Decode(&newRepos)
+        if err != nil {
+            log.Printf("Error JSON decoding: %v", err)
+            data.Error = "Error JSON decoding."
+            return
+        }
+
+        data.Repos = newRepos
+    }()
+}
+</script>
