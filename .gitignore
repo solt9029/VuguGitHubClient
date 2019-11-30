@@ -2,4 +2,6 @@
 !devserver.go
 !main_wasm.go
 !dist.go
+
 dist/*
+!dist/index.html
