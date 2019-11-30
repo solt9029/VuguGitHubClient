@@ -1,3 +1,5 @@
 *.go
 !devserver.go
 !main_wasm.go
+!dist.go
+dist/*
