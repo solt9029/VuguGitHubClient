@@ -3,3 +3,5 @@
 !main_wasm.go
 !dist.go
 dist/*
+
+node_modules/*

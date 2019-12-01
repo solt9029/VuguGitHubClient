@@ -1,0 +1,23 @@
+{
+  "name": "vugugithubclient",
+  "version": "1.0.0",
+  "description": "- This GitHub client is created with WebAssembly framework called Vugu for tutorial.",
+  "main": "index.js",
+  "scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solt9029/VuguGitHubClient.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solt9029/VuguGitHubClient/issues"
+  },
+  "homepage": "https://github.com/solt9029/VuguGitHubClient#readme",
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
+  }
+}
