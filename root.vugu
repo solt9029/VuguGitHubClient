@@ -9,13 +9,11 @@
 				</div>
 			</div>
 			<div class="block">
-				<div vg-if='data.IsLoading'>isLoading...</div>
-				<div vg-if='data.Error != ""' vg-html='data.Error'></div>
-				<div vg-if='len(data.Repos) > 0'>
+				<div vg-if="data.IsLoading">isLoading...</div>
+				<div vg-if='data.Error != ""' vg-html="data.Error"></div>
+				<div vg-if="len(data.Repos) > 0">
 					<ul class="list-group">
-						<li class="list-group-item" vg-for='_, repo := range data.Repos'>
-							<a :href='repo.HtmlUrl' vg-html='repo.Name'></a>
-						</li>
+						<repo-item vg-for="_, repo := range data.Repos" :name="repo.Name" :html-url="repo.HtmlUrl"></repo-item>
 					</ul>
 				</div>
 			</div>

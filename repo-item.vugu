@@ -1,0 +1,17 @@
+<li class="list-group-item">
+	<a :href="data.HtmlUrl" vg-html="data.Name"></a>
+</li>
+
+<script type="application/x-go">
+type RepoItemData struct {
+	Name    string
+	HtmlUrl string
+}
+
+func (component *RepoItem) NewData(props vugu.Props) (interface{}, error) {
+	ret := &RepoItemData{}
+	ret.Name, _ = props["name"].(string)
+	ret.HtmlUrl, _ = props["html-url"].(string)
+	return ret, nil
+}
+</script>
