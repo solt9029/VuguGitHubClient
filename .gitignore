@@ -2,6 +2,4 @@
 !server.go
 !main_wasm.go
 !dist.go
-!simplehttp/simple-handler.go
 dist/*
-!dist/index.html

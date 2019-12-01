@@ -6,12 +6,15 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"text/template"
 	"time"
 
 	"github.com/vugu/vugu/distutil"
+	"github.com/vugu/vugu/simplehttp"
 )
 
 func main() {
@@ -47,11 +50,11 @@ func main() {
 
 	// STATIC INDEX FILE:
 	// if you are hosting with a static file server or CDN, you can write out the default index.html from simplehttp
-	// req, _ := http.NewRequest("GET", "/index.html", nil)
-	// outf, err := os.OpenFile(filepath.Join(*dist, "index.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
-	// distutil.Must(err)
-	// defer outf.Close()
-	// template.Must(template.New("_page_").Parse(simplehttp.DefaultPageTemplateSource)).Execute(outf, map[string]interface{}{"Request": req})
+	req, _ := http.NewRequest("GET", "/index.html", nil)
+	outf, err := os.OpenFile(filepath.Join(*dist, "index.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
+	distutil.Must(err)
+	defer outf.Close()
+	template.Must(template.New("_page_").Parse(simplehttp.DefaultPageTemplateSource)).Execute(outf, map[string]interface{}{"Request": req})
 
 	// BUILD GO SERVER:
 	// or if you are deploying a Go server (yay!) you can build that binary here

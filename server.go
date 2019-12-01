@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/solt9029/VuguGitHubClient/simplehttp"
+	"github.com/vugu/vugu/simplehttp"
 )
 
 func main() {
