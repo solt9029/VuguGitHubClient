@@ -1,14 +1,25 @@
 <div class="root">
-	<input type="text" name="user" @change="data.HandleChange(event)">
-	<button @click="data.HandleClick(event)">find repos</button>
-	<div vg-if='data.IsLoading'>isLoading...</div>
-	<div vg-if='data.Error != ""' vg-html='data.Error'></div>
-	<div vg-if='len(data.Repos) > 0'>
-		<ul>
-			<li vg-for='_, repo := range data.Repos'>
-				<a :href='repo.HtmlUrl' vg-html='repo.Name'></a>
-			</li>
-		</ul>
+	<div class="container">
+		<div class="row">
+			<h1>VuguGitHubClient</h1>
+			<div class="input-group block">
+				<input type="text" placeholder="user" id="user" class="form-control" @change="data.HandleChange(event)">
+				<div class="input-group-append">
+					<button class="btn btn-primary" @click="data.HandleClick(event)">find repos</button>
+				</div>
+			</div>
+			<div class="block">
+				<div vg-if='data.IsLoading'>isLoading...</div>
+				<div vg-if='data.Error != ""' vg-html='data.Error'></div>
+				<div vg-if='len(data.Repos) > 0'>
+					<ul class="list-group">
+						<li class="list-group-item" vg-for='_, repo := range data.Repos'>
+							<a :href='repo.HtmlUrl' vg-html='repo.Name'></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,6 +27,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </div>
+
+<style>
+.block {
+	margin-bottom: 30px;
+}
+</style>
 
 <script type="application/x-go">
 import (
